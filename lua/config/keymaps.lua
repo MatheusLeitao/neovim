@@ -7,15 +7,14 @@
 
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+local Scope = require("mathleitao.plugins.scope")
 
 -- keymap.del("n", "<A-j>") -- Delete lazyvim mapping
 keymap.del("n", "s") -- Delete lazyvim mapping
 -- keymap.del("n", "<F2>") -- Delete lazyvim mapping
---
--- keymap.set("n", "<A-k>", ":m .1<CR>==") -- move line down(n)
--- keymap.set("n", "<A-j>", ":m .+4<CR>==") -- move line up(n)
--- keymap.set("v", "<A-j>", ":m '>+4<CR>gv=gv") -- move line up(v)
--- keymap.set("v", "<A-k>", ":m '<1<CR>gv=gv") -- move line down(v)
+
+keymap.set("i", "<C-l>", Scope.identify_scope)
+keymap.set("i", "Ç", "<Esc>")
 
 keymap.set("n", "<C-b>", vim.cmd.Ex)
 keymap.set("v", "<C-b>", vim.cmd.Ex)
@@ -38,10 +37,16 @@ keymap.set({ "n" }, "-", "<C-x>")
 -- Tab management
 keymap.set("n", "<C-t>", ":tabedit<CR>", opts)
 keymap.set("n", "<s-tab>", ":tabnext<CR>", opts)
+keymap.set("n", "<C-w>w", ":bw<CR>", {
+  noremap = false,
+  desc = "Close buffer",
+})
 -- keymap.set("n", "<C-S-Tab>", ":tabprev<CR>", opts)
 
 -- Split window
-keymap.set("n", "sS", ":vsplit<CR>", opts)
+keymap.set("n", "<leader>sS", ":vsplit<CR>", {
+  desc = "Split window vertically",
+})
 keymap.set("n", "<A-q>", "<C-w>h", opts)
 keymap.set("n", "<A-e>", "<C-w>l", opts)
 
@@ -53,5 +58,3 @@ end)
 keymap.set("i", "<C-BS>", "db")
 -- keymap.set("i", "<C-s>", "<C-o>:w<CR>")
 -- keymap.set("n", "<C-s>", "<C-o>:w<CR>")
-
--- keymap.set("n", "<C-t>", ":lua ToggleQuotes()<CR>", { desc = "Apenas um teste" })
