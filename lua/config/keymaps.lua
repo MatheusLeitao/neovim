@@ -11,8 +11,10 @@ local Scope = require("mathleitao.plugins.scope")
 
 -- keymap.del("n", "<A-j>") -- Delete lazyvim mapping
 keymap.del("n", "s") -- Delete lazyvim mapping
+-- keymap.del("i", "<tab>")
 -- keymap.del("n", "<F2>") -- Delete lazyvim mapping
 
+-- keymap.set("i", "<tab>", Scope.identify_scope)
 keymap.set("i", "<C-l>", Scope.identify_scope)
 keymap.set("i", "Ç", "<Esc>")
 
@@ -44,7 +46,7 @@ keymap.set("n", "<C-w>w", ":bw<CR>", {
 -- keymap.set("n", "<C-S-Tab>", ":tabprev<CR>", opts)
 
 -- Split window
-keymap.set("n", "<leader>sS", ":vsplit<CR>", {
+keymap.set("n", "<leader>vS", ":vsplit<CR>", {
   desc = "Split window vertically",
 })
 keymap.set("n", "<A-q>", "<C-w>h", opts)

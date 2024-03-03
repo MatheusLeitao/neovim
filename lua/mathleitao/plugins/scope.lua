@@ -37,12 +37,8 @@ end
 
 ---@param node TSNode
 local get_mouse_pos_in_node = function(node)
-  print("Cursor at >> " .. CURSOR_POSITION[1], CURSOR_POSITION[2])
   local start_line, start_char = node:start()
   local end_line, end_char = node:end_()
-
-  print("Node Start >> " .. start_line .. " < WTF >" .. start_char)
-  print("Node End >> " .. end_line .. " < WTF >" .. end_char)
 
   return { CURSOR_POSITION[2], end_char }
 end
@@ -52,19 +48,33 @@ local get_cursor_pos = function()
   CURSOR_POSITION = vim.api.nvim_win_get_cursor(WIN_ID)
 end
 
+---@return boolean
+local is_last_pos = function(cursor_pos, node_last_pos)
+  if cursor_pos ~= node_last_pos - 1 then
+    return false
+  end
+
+  return true
+end
+
 M.identify_scope = function()
+  print("It went trought")
   get_cursor_pos()
   local node = get_master_node()
   local actual_node = node:parent()
 
-  print("Parent >> " .. actual_node:type())
-
   if ELIGIBLE_SCOPE_TYPES[node:type()] then
-    print("Is " .. node:type())
     local pos = get_mouse_pos_in_node(node)
+    local is_last = is_last_pos(CURSOR_POSITION[2], pos[2])
+    -- p(is_last)
 
-    vim.api.nvim_win_set_cursor(WIN_ID, { CURSOR_POSITION[1], pos[2] })
-    p("Set pos in line >> ")
+    if is_last then
+      vim.api.nvim_win_set_cursor(WIN_ID, { CURSOR_POSITION[1], pos[2] })
+      -- else
+      --   local bufnr = vim.api.nvim_get_current_buf()
+      --   local cursor_pos = vim.api.nvim_win_get_cursor(WIN_ID)
+      --   vim.api.nvim_buf_set_text(bufnr, CURSOR_POSITION[1], CURSOR_POSITION[2], CURSOR_POSITION[1], CURSOR_POSITION[2] { "\t" })
+    end
   else
     print("Is not string >> " .. node:type())
   end
