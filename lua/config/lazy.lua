@@ -52,3 +52,5 @@ require("lazy").setup({
     },
   },
 })
+
+require("lspconfig").asm_lsp.setup({})

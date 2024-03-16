@@ -6,3 +6,16 @@
 
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
+
+vim.opt.relativenumber = true
+vim.opt.nu = true
+
+vim.opt.termguicolors = true
+
+vim.opt.tabstop = 2
+vim.opt.expandtab = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+vim.opt.scrolloff = 8
